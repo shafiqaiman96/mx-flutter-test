@@ -49,4 +49,24 @@ class ProductNotifier extends StateNotifier<ProductState> {
       );
     }
   }
+
+  void getUniqueCategories() {
+    final categories = state.productsList
+        .map((product) => product.category ?? '')
+        .toSet()
+        .toList();
+
+    state = state.copyWith(categoryList: categories);
+  }
+
+  void filterProductsByCategory(String category) {
+    final filteredProducts = state.productsList
+        .where(
+          (product) =>
+              product.category?.toLowerCase() == category.toLowerCase(),
+        )
+        .toList();
+
+    state = state.copyWith(productsList: filteredProducts);
+  }
 }

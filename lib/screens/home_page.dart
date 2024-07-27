@@ -22,6 +22,8 @@ class HomePage extends HookConsumerWidget {
         Future<void> fetchData() async {
           final notifier = ref.read(productNotifierProvider.notifier);
           await notifier.fetchProductList();
+
+          notifier.getUniqueCategories();
         }
 
         WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -55,6 +57,7 @@ class HomePage extends HookConsumerWidget {
                   ),
             ),
           ),
+          const CategoryFilterWidget(),
           ref.watch(productNotifierProvider).isLoading
               ? const HomePageLoading()
               : const ListProductsWidget(),
