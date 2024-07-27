@@ -152,7 +152,8 @@ class CartsPage extends HookConsumerWidget {
                                                       ),
                                                 ),
                                                 SizedBox(
-                                                    height: AppResizer.space30),
+                                                  height: AppResizer.space30,
+                                                ),
                                                 GestureDetector(
                                                   child: Text(
                                                     'Remove',
@@ -183,7 +184,8 @@ class CartsPage extends HookConsumerWidget {
                                     horizontal: AppResizer.space20,
                                   ),
                                   child: Divider(
-                                      color: Colors.red.withOpacity(.2)),
+                                    color: Colors.red.withOpacity(.2),
+                                  ),
                                 ),
                               ],
                             ],

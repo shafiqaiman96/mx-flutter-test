@@ -8,6 +8,7 @@ class ProductState {
   final ProductModel productOnView;
   final List<ProductModel> productsList;
   final List<ProductModel> filteredProductsList;
+  final List<String> categoryList;
 
   final Option<Either<ApiRequestFailure, ApiRequestSuccess>>?
       failureOrSuccessOption;
@@ -18,6 +19,7 @@ class ProductState {
     required this.productsList,
     required this.filteredProductsList,
     required this.failureOrSuccessOption,
+    required this.categoryList,
   });
 
   factory ProductState.initial() {
@@ -27,6 +29,7 @@ class ProductState {
       productsList: [],
       filteredProductsList: [],
       failureOrSuccessOption: none(),
+      categoryList: [],
     );
   }
 
@@ -38,6 +41,7 @@ class ProductState {
     List<ProductModel>? filteredProductsList,
     Option<Either<ApiRequestFailure, ApiRequestSuccess>>?
         failureOrSuccessOption,
+    final List<String>? categoryList,
   }) {
     return ProductState(
       isLoading: isLoading ?? this.isLoading,
@@ -46,6 +50,7 @@ class ProductState {
       filteredProductsList: filteredProductsList ?? this.filteredProductsList,
       failureOrSuccessOption:
           failureOrSuccessOption ?? this.failureOrSuccessOption,
+      categoryList: categoryList ?? this.categoryList,
     );
   }
 }
