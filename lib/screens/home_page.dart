@@ -1,13 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mx_flutter_test/home_page_loading.dart';
+import 'package:mx_flutter_test/screens/home_page_loading.dart';
 import 'package:mx_flutter_test/utils/utils.dart';
 
-import 'global_widgets/global_widgets.dart';
-import 'screens/products/products.dart';
-import 'shared/shared.dart';
+import '../global_widgets/global_widgets.dart';
+import '../models/models.dart';
+import 'products/products.dart';
+import '../shared/shared.dart';
 
 @RoutePage()
 class HomePage extends HookConsumerWidget {
@@ -44,7 +46,7 @@ class HomePage extends HookConsumerWidget {
               top: AppResizer.space16,
               left: AppResizer.space16,
             ),
-            color: const Color(0xfff7f7f7),
+            color: AppColors.grey,
             width: MediaQuery.sizeOf(context).width,
             child: Text(
               'Discover products',
@@ -61,9 +63,39 @@ class HomePage extends HookConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.router.push(const CartsRoute()),
         backgroundColor: Colors.red,
-        child: const Icon(
-          Icons.shopping_cart,
-          color: Colors.white,
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box<ProductModel>('cartBox').listenable(),
+          builder: (context, Box<ProductModel> box, _) {
+            return Stack(
+              clipBehavior: Clip.none,
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+                if (box.length > 0)
+                  Positioned(
+                    right: -6,
+                    top: -14,
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '${box.length}',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

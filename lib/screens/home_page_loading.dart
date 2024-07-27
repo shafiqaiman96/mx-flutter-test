@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'global_widgets/global_widgets.dart';
-import 'utils/utils.dart';
+import '../global_widgets/global_widgets.dart';
+import '../utils/utils.dart';
 
 class HomePageLoading extends StatelessWidget {
   const HomePageLoading({super.key});
@@ -10,7 +10,7 @@ class HomePageLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ColoredBox(
-        color: const Color(0xfff7f7f7),
+        color: AppColors.grey,
         child: ListView(
           children: [
             Padding(

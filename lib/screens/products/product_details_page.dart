@@ -15,7 +15,7 @@ class ProductDetailsPage extends HookConsumerWidget {
     final product = ref.watch(productNotifierProvider).productOnView;
 
     return Scaffold(
-      backgroundColor: const Color(0xfff7f7f7),
+      backgroundColor: AppColors.grey,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,7 +93,7 @@ class ProductDetailsPage extends HookConsumerWidget {
                 ),
                 SizedBox(height: AppResizer.space8),
                 Text(
-                  'RM ${product.price}',
+                  'RM ${product.price?.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.red,
@@ -141,33 +141,36 @@ class ProductDetailsPage extends HookConsumerWidget {
                 color: Colors.white,
               ),
               padding: EdgeInsets.only(top: AppResizer.space16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: AppResizer.space30),
-                    child: Text(
-                      'Description:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: AppResizer.space30),
+                      child: Text(
+                        'Description:',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppResizer.space30,
-                      vertical: AppResizer.space10,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppResizer.space30,
+                        vertical: AppResizer.space10,
+                      ),
+                      child: Text(
+                        product.description ?? '',
+                        style:
+                            Theme.of(context).textTheme.bodySmall?.copyWith(),
+                        textAlign: TextAlign.justify,
+                      ),
                     ),
-                    child: Text(
-                      product.description ?? '',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

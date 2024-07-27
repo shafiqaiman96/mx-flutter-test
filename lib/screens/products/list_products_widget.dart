@@ -16,7 +16,7 @@ class ListProductsWidget extends HookConsumerWidget {
 
     return Expanded(
       child: Container(
-        color: const Color(0xfff7f7f7),
+        color: AppColors.grey,
         child: Padding(
           padding: EdgeInsets.fromLTRB(
             0,
@@ -91,7 +91,7 @@ class ListProductsWidget extends HookConsumerWidget {
                           ),
                           SizedBox(height: AppResizer.space8),
                           Text(
-                            'RM ${product.price}',
+                            'RM ${product.price?.toStringAsFixed(2)}',
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       fontWeight: FontWeight.bold,

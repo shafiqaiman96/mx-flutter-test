@@ -26,16 +26,27 @@ class CustomAppBar extends HookConsumerWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(height),
       child: AppBar(
-        backgroundColor: const Color(0xfff7f7f7),
+        backgroundColor: AppColors.grey,
         automaticallyImplyLeading: false,
+        leading: isHome
+            ? const SizedBox()
+            : IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                onPressed: () => context.router.back(),
+              ),
         flexibleSpace: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/background_header.svg',
-              fit: BoxFit.fill,
-              width: MediaQuery.sizeOf(context).width,
-              height: height,
-            ),
+            title == 'Your cart'
+                ? const CustomHalfOvalContainer()
+                : SvgPicture.asset(
+                    'assets/background_header.svg',
+                    fit: BoxFit.fill,
+                    width: MediaQuery.sizeOf(context).width,
+                    height: height,
+                  ),
             Padding(
               padding: EdgeInsets.only(top: AppResizer.space40),
               child: Center(
@@ -122,7 +133,8 @@ class CustomAppBar extends HookConsumerWidget implements PreferredSizeWidget {
                                               .setProductOnView(item);
 
                                           context.router.push(
-                                              const ProductDetailsRoute());
+                                            const ProductDetailsRoute(),
+                                          );
                                         },
                                         child: Container(
                                           margin: EdgeInsets.fromLTRB(
@@ -161,4 +173,48 @@ class CustomAppBar extends HookConsumerWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(height);
+}
+
+class CustomHalfOvalContainer extends StatelessWidget {
+  const CustomHalfOvalContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.sizeOf(context).width,
+      height: AppResizer.space200,
+      color: Colors.transparent,
+      child: CustomPaint(
+        painter: HalfOvalPainter(),
+      ),
+    );
+  }
+}
+
+class HalfOvalPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = AppColors.red
+      ..style = PaintingStyle.fill;
+
+    final path = Path()
+      ..moveTo(0, size.height * 0.7)
+      ..quadraticBezierTo(
+        size.width / 2,
+        size.height,
+        size.width,
+        size.height * 0.7,
+      )
+      ..lineTo(size.width, 0)
+      ..lineTo(0, 0)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
 }
