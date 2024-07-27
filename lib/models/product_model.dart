@@ -1,17 +1,28 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
+
+part 'product_model.g.dart';
 
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
 
 String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
+@HiveType(typeId: 0)
 class ProductModel {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? title;
+  @HiveField(2)
   double? price;
+  @HiveField(3)
   String? description;
+  @HiveField(4)
   String? category;
+  @HiveField(5)
   String? image;
+  @HiveField(6)
   Rating? rating;
 
   ProductModel({
@@ -64,8 +75,11 @@ class ProductModel {
       };
 }
 
+@HiveType(typeId: 1)
 class Rating {
+  @HiveField(0)
   double? rate;
+  @HiveField(1)
   int? count;
 
   Rating({

@@ -66,6 +66,7 @@ class AppResizer {
   static final double space120 = 120.w;
   static final double space130 = 130.w;
   static final double space140 = 140.w;
+  static final double space150 = 150.w;
   static final double space160 = 160.w;
   static final double space180 = 180.w;
   static final double space200 = 200.w;

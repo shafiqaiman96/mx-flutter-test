@@ -3,11 +3,9 @@ import '../utils/utils.dart';
 
 class NetworkImageWidget extends StatelessWidget {
   final String imageUrl;
-  final bool isSmall;
   const NetworkImageWidget({
     super.key,
     required this.imageUrl,
-    this.isSmall = false,
   });
 
   @override
@@ -16,7 +14,7 @@ class NetworkImageWidget extends StatelessWidget {
         ? Icon(
             Icons.image,
             color: Colors.grey,
-            size: isSmall ? AppResizer.space40 : AppResizer.space90,
+            size: AppResizer.space90,
           )
         : Image.network(
             imageUrl,
@@ -44,7 +42,7 @@ class NetworkImageWidget extends StatelessWidget {
                 Icon(
               Icons.image,
               color: Colors.grey,
-              size: isSmall ? AppResizer.space40 : AppResizer.space90,
+              size: AppResizer.space90,
             ),
           );
   }
