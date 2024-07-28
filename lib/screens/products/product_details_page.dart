@@ -183,7 +183,11 @@ class ProductDetailsPage extends HookConsumerWidget {
           onTap: () async {
             await cartBox.value.add(product);
 
-            print(cartBox.value.values);
+            showSnackBar(
+              // ignore: use_build_context_synchronously
+              context,
+              '${product.title} had been added to cart',
+            );
           },
         ),
       ),
