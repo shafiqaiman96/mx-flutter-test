@@ -165,13 +165,14 @@ class CartsPage extends HookConsumerWidget {
                                                         ),
                                                   ),
                                                   onTap: () {
-                                                    try {
-                                                      box.deleteAt(i);
-                                                      totalPrice = CartsNotifier()
-                                                          .calculateCartTotal();
-                                                    } catch (e) {
-                                                      print(e);
-                                                    }
+                                                    confirmationDialog(context,
+                                                        () {
+                                                      _deleteItem(
+                                                        context,
+                                                        box,
+                                                        i,
+                                                      );
+                                                    });
                                                   },
                                                 ),
                                               ],
@@ -201,9 +202,30 @@ class CartsPage extends HookConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: AppButton(
           title: 'Check out',
-          onTap: () {},
+          onTap: () {
+            showSnackBar(
+              context,
+              'This feature is for simulation only',
+            );
+          },
         ),
       ),
     );
+  }
+}
+
+void _deleteItem(BuildContext context, Box<ProductModel> box, int index) {
+  try {
+    final tempName = box.getAt(index);
+
+    box.deleteAt(index);
+    CartsNotifier().calculateCartTotal();
+
+    showSnackBar(
+      context,
+      '${tempName?.title} has been removed',
+    );
+  } catch (e) {
+    print(e);
   }
 }
